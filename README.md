@@ -46,11 +46,12 @@ This will install packages such as playwright, nodemailer, axios, p-limit, and d
 
 ### 3. Configure Environment Variables
 Create a .env file in the project root with the following content:
+```
 EMAIL_USER=your-email@example.com
 EMAIL_PASS=your-email-password
 EMAIL_TO=recipient@example.com
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/your_webhook_url
-
+```
 Replace the placeholder values with your actual email credentials and Discord webhook URL.
 
 ### 4. Prepare the Product Data Files
