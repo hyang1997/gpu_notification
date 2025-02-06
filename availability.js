@@ -1,5 +1,6 @@
 // availability.js
 import { delay } from './utils.js';
+import { sendDiscordNotification } from './notifications.js'; // Import Discord notification
 
 // Selectors for Canada Computers
 const SELECTORS = {
@@ -105,77 +106,130 @@ export async function checkAvailabilityCanada(context, product) {
   }
 }
 
-// --- Unified Check ---
-export async function checkAvailabilityUnified(context, product) {
-  if (product.site === "bestbuy") {
-    return await checkAvailabilityBestBuy(context, product);
-  } else if (product.site === "canadacomputers") {
-    return await checkAvailabilityCanada(context, product);
-  } else {
-    console.log(`Unknown site for product ${product.sku}`);
-    return { sku: product.sku, targetURL: product.targetURL, site: product.site, availability: { type: product.site, data: null } };
+// --- Newegg Check ---
+export async function checkAvailabilityNewegg(context, product) {
+  const { targetURL, sku } = product;
+  const page = await context.newPage();
+  console.log(`Checking Newegg: ${targetURL} for ${sku}`);
+  
+  // Random delay (1–3 seconds)
+  const delayMs = Math.floor(Math.random() * 200) + 100;
+  await page.waitForTimeout(delayMs);
+  
+  try {
+    await page.goto(targetURL, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    const buttonSelector = 'button.btn-primary'; // Newegg's "Add to Cart" button class
+    try {
+      await page.waitForSelector(buttonSelector, { timeout: 10000 });
+    } catch (err) {
+      console.log(`Newegg: "Add to Cart" button not found for ${sku}`);
+      await page.close();
+      return { sku, targetURL, site: "newegg", availability: { type: "newegg", data: false } };
+    }
+  
+    const addToCartButton = await page.$(buttonSelector);
+    if (!addToCartButton) {
+      console.log(`Newegg: "Add to Cart" button missing for ${sku}`);
+      await page.close();
+      return { sku, targetURL, site: "newegg", availability: { type: "newegg", data: false } };
+    }
+  
+    const isDisabled = await addToCartButton.evaluate((btn) => btn.disabled);
+    const available = !isDisabled;
+    console.log(`Newegg: ${sku} is ${available ? "AVAILABLE" : "NOT available"}`);
+    await page.close();
+    return { sku, targetURL, site: "newegg", availability: { type: "newegg", data: available } };
+  } catch (error) {
+    console.error(`Error checking Newegg for ${sku}:`, error);
+    await page.close();
+    return { sku, targetURL, site: "newegg", availability: { type: "newegg", data: false } };
   }
 }
 
-// --- Process Availability (for email aggregation) ---
-export async function processAvailability(newState, previousAvailability, sendEmailNotification) {
-  const changesToEmail = [];
-  
-  for (const sku in newState) {
-    const newProd = newState[sku];
-    const oldProd = previousAvailability[sku];
-    
-    if (newProd.site === "bestbuy") {
-      const newAvail = newProd.availability.data;
-      const oldAvail = oldProd ? oldProd.availability.data : false;
-      if (newAvail !== oldAvail) {
-        const status = newAvail ? "AVAILABLE" : "OUT OF STOCK";
-        changesToEmail.push({
-          sku,
-          targetURL: newProd.targetURL,
-          availability: { status }
-        });
-      }
-    } else if (newProd.site === "canadacomputers") {
-      const newAvail = newProd.availability.data;
-      const oldAvail = oldProd ? oldProd.availability.data : {};
-      const allLocations = new Set([...Object.keys(newAvail), ...Object.keys(oldAvail)]);
-      let changeDetected = false;
-      for (const location of allLocations) {
-        const newQty = newAvail[location] || 0;
-        const oldQty = oldAvail[location] || 0;
-        if (newQty !== oldQty) {
-          changeDetected = true;
-        }
-      }
-      if (changeDetected) {
-        changesToEmail.push({
-          sku,
-          targetURL: newProd.targetURL,
-          availability: Object.entries(newAvail).map(([location, quantity]) => ({ location, quantity }))
-        });
+// --- Unified Check ---
+export async function checkAvailabilityUnified(context, product) {
+  switch (product.site) {
+    case "bestbuy":
+      return await checkAvailabilityBestBuy(context, product);
+    case "canadacomputers":
+      return await checkAvailabilityCanada(context, product);
+    case "newegg":
+      return await checkAvailabilityNewegg(context, product);
+    default:
+      console.log(`Unknown site for product ${product.sku}`);
+      return {
+        sku: product.sku,
+        targetURL: product.targetURL,
+        site: product.site,
+        availability: { type: product.site, data: null },
+      };
+  }
+}
+
+/**
+ * checkAndNotify:
+ *   - Calls the unified availability check for a given product.
+ *   - Compares the newly obtained availability with the previously stored state.
+ *   - Sends immediate notifications (via email and Discord) if a change is detected.
+ *
+ * @param {Object} context - The browser context.
+ * @param {Object} product - The product to check.
+ * @param {Object} previousAvailability - An object mapping product SKUs to their previous availability state.
+ * @param {Function} sendEmailNotification - A function to send email notifications.
+ *
+ * @returns {Object} newProd - The new state for the product.
+ */
+export async function checkAndNotify(context, product, previousAvailability, sendEmailNotification) {
+  const newProd = await checkAvailabilityUnified(context, product);
+  const oldProd = previousAvailability[newProd.sku];
+
+  let message = '';
+
+  if (newProd.site === "bestbuy") {
+    const newAvail = newProd.availability.data;
+    const oldAvail = oldProd ? oldProd.availability.data : false;
+    if (newAvail !== oldAvail) {
+      const status = newAvail ? "AVAILABLE" : "OUT OF STOCK";
+      message = `🔹 *${newProd.sku}*\n🔗 URL: ${newProd.targetURL}\nStatus: ${status}`;
+    }
+  } else if (newProd.site === "canadacomputers") {
+    const newAvail = newProd.availability.data;
+    const oldAvail = oldProd ? oldProd.availability.data : {};
+    const allLocations = new Set([...Object.keys(newAvail), ...Object.keys(oldAvail)]);
+    let changeDetected = false;
+    for (const location of allLocations) {
+      const newQty = newAvail[location] || 0;
+      const oldQty = oldAvail[location] || 0;
+      if (newQty !== oldQty) {
+        changeDetected = true;
+        break;
       }
     }
+    if (changeDetected) {
+      const availabilityLines = Object.entries(newAvail)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([location, quantity]) => `   - 📍 *${location.toLowerCase()}* : ${quantity}`)
+        .join("\n");
+      message = `🔹 *${newProd.sku}*\n🔗 URL: ${newProd.targetURL}\n${availabilityLines}`;
+    }
+  } else if (newProd.site === "newegg") {
+    const newAvail = newProd.availability.data;
+    const oldAvail = oldProd ? oldProd.availability.data : false;
+    if (newAvail !== oldAvail) {
+      const status = newAvail ? "AVAILABLE" : "OUT OF STOCK";
+      message = `🔹 *${newProd.sku}*\n🔗 URL: ${newProd.targetURL}\nStatus: ${status}`;
+    }
   }
-  
-  if (changesToEmail.length > 0) {
-    const subject = 'Stock Changes Detected';
-    const text = changesToEmail
-      .map(change => {
-        if (change.availability.status) {
-          return `🔹 *${change.sku}*\n🔗 URL: ${change.targetURL}\nStatus: ${change.availability.status}`;
-        } else {
-          const availabilityLines = change.availability
-            .sort((a, b) => a.location.localeCompare(b.location))
-            .map(item => `   - 📍 *${item.location.toLowerCase()}* : ${item.quantity}`)
-            .join("\n");
-          return `🔹 *${change.sku}*\n🔗 URL: ${change.targetURL}\n${availabilityLines}`;
-        }
-      })
-      .join("\n\n");
-      
-    sendEmailNotification(subject, text);
+
+  if (message) {
+    // Send notifications immediately for this product update.
+    sendEmailNotification('Stock Change Detected', message);
+    sendDiscordNotification(`**Stock Change Detected**\n\n${message}`);
+    console.log(`Notifications sent immediately for ${newProd.sku}`);
   } else {
-    console.log('No stock changes detected.');
+    console.log(`No change detected for ${newProd.sku}`);
   }
+
+  // Return the new product state so the caller can update their stored state.
+  return newProd;
 }

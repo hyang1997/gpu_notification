@@ -4,7 +4,7 @@ import pLimit from 'p-limit';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { checkAvailabilityUnified, processAvailability } from './availability.js';
+import { checkAndNotify } from './availability.js';
 import { sendDiscordNotification, sendEmailNotification } from './notifications.js';
 
 // Create __dirname for ES modules
@@ -19,9 +19,8 @@ const canadaProducts = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'canada-computers-urls.json'), 'utf8')
 );
 
-// Global variables to store state
+// Global variable to store previous availability state (keyed by SKU)
 let previousAvailability = {};
-let notifiedProducts = {}; // { sku: true } for products already notified as available
 
 async function checkProducts() {
   // Launch browser in headless mode
@@ -45,57 +44,30 @@ async function checkProducts() {
     }
   });
   
-  // Separate concurrency per shop
+  // Separate concurrency limits per shop
   const bestbuyLimit = pLimit(3);
   const canadacomputersLimit = pLimit(3);
   
+  // For each product, call checkAndNotify so that any change sends notifications immediately.
   const bestbuyTasks = bestbuyProducts.map(product =>
-    bestbuyLimit(() => checkAvailabilityUnified(context, product))
+    bestbuyLimit(() =>
+      checkAndNotify(context, product, previousAvailability, sendEmailNotification)
+    )
   );
   const canadacomputersTasks = canadaProducts.map(product =>
-    canadacomputersLimit(() => checkAvailabilityUnified(context, product))
+    canadacomputersLimit(() =>
+      checkAndNotify(context, product, previousAvailability, sendEmailNotification)
+    )
   );
   
   const bestbuyResults = await Promise.all(bestbuyTasks);
   const canadacomputersResults = await Promise.all(canadacomputersTasks);
   const results = [...bestbuyResults, ...canadacomputersResults];
   
-  // Immediately send Discord notifications on the spot
-  for (const result of results) {
-    if (result.site === "bestbuy") {
-      if (result.availability.data === true && !notifiedProducts[result.sku]) {
-        const message = `**Stock Found for ${result.sku} (BestBuy):**\n[View Product](${result.targetURL})`;
-        await sendDiscordNotification(message);
-        notifiedProducts[result.sku] = true;
-      } else if (result.availability.data === false) {
-        // Remove if no longer available
-        delete notifiedProducts[result.sku];
-      }
-    } else if (result.site === "canadacomputers") {
-      if (Object.keys(result.availability.data).length > 0 && !notifiedProducts[result.sku]) {
-        let message = `**Stock Found for ${result.sku} (Canada Computers):**\n`;
-        for (const [location, qty] of Object.entries(result.availability.data)) {
-          message += `Location: ${location} - Quantity: ${qty}\n`;
-        }
-        message += `[View Product](${result.targetURL})`;
-        await sendDiscordNotification(message);
-        notifiedProducts[result.sku] = true;
-      } else if (Object.keys(result.availability.data).length === 0) {
-        delete notifiedProducts[result.sku];
-      }
-    }
-  }
-  
-  // Build new state keyed by SKU
-  const newState = {};
+  // Update the stored state with the latest results.
   results.forEach(result => {
-    newState[result.sku] = result;
+    previousAvailability[result.sku] = result;
   });
-  
-  // Process differences for aggregated email notifications (if desired)
-  await processAvailability(newState, previousAvailability, sendEmailNotification);
-  
-  previousAvailability = newState;
   
   await context.close();
   await browser.close();
