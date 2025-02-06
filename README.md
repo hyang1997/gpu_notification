@@ -47,7 +47,7 @@ Clone this repository to your local machine:
 
 ```bash
 git clone https://github.com/hyang1997/gpu_notification
-cd <repository-directory>
+cd gpu_notification
 ```
 ### 2. Install Dependencies
 Make sure you have Node.js installed. Then, install the required packages:
