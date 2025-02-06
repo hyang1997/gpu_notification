@@ -57,6 +57,7 @@ Replace the placeholder values with your actual email credentials and Discord we
 Ensure that your product data files exist in the project root and follow the correct JSON structure.
 
 For BestBuy (bestbuy-urls.json):
+```
 [
   {
     "targetURL": "https://www.bestbuy.ca/en-ca/product/nvidia-geforce-rtx-5080-16gb-gddr7-video-card/18931347",
@@ -70,8 +71,9 @@ For BestBuy (bestbuy-urls.json):
   }
   // Add additional BestBuy products as needed
 ]
-
+```
 For Canada Computers (canada-computers-urls.json):
+```
 [
   {
     "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268187/gigabyte-aorus-geforce-rtx-5090-master-ice-32g-gv-n5090aorusm-ice-32gd.html",
@@ -85,7 +87,7 @@ For Canada Computers (canada-computers-urls.json):
   }
   // Add additional Canada Computers products as needed
 ]
-
+```
 Usage
 To run the script, use the following command:
 node index.js
