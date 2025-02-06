@@ -30,6 +30,7 @@ project/
 ├─ bestbuy-urls.json
 └─ canada-computers-urls.json
 ```
+
 - **`.env`**: Contains sensitive credentials and configuration.
 - **`config.js`**: Loads environment variables.
 - **`notifications.js`**: Contains functions to send Discord and email notifications.
@@ -62,6 +63,7 @@ EMAIL_TO=recipient@example.com
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/your_webhook_url
 ```
 Replace the placeholder values with your actual email credentials and Discord webhook URL.
+Note: APP only gmail password can generated [here](https://myaccount.google.com/apppasswords)
 
 ### 4. Prepare the Product Data Files
 Ensure that your product data files exist in the project root and follow the correct JSON structure.
@@ -98,7 +100,7 @@ For Canada Computers (canada-computers-urls.json):
   // Add additional Canada Computers products as needed
 ]
 ```
-### 6.Usage
+### 6. Usage
 To run the script, use the following command:
 ```
 node index.js
@@ -113,7 +115,7 @@ node index.js
 -> Send aggregated email notifications if stock changes occur.
 -> Repeat the check every minute (this interval can be adjusted in index.js).
 
-### 7.Customization
+### 7. Customization
 Check Frequency:
 Adjust the minutes variable in index.js to change how often the script runs.
 
@@ -123,9 +125,10 @@ Modify the pLimit(3) values in index.js to change the number of concurrent check
 Notification Behavior:
 You can customize the notification message formats in notifications.js and the immediate notification logic in index.js.
 
-### 8.Troubleshooting
+### 8. Troubleshooting
 No Notifications:
-If no Discord messages are being sent, verify that your DISCORD_WEBHOOK_URL is correct in the .env file.
+If no Discord messages are being sent, verify that your **DISCORD_WEBHOOK_URL** is correct in the .env file.
+If no Email is being sent double check for correct password and email address.
 
 Selector Issues:
 If the script isn’t detecting elements on the page, inspect the page structure to ensure the CSS selectors in availability.js are still valid.
