@@ -39,12 +39,12 @@ Clone this repository to your local machine:
 git clone <repository-url>
 cd <repository-directory>
 ```
-2. Install Dependencies
+### 2. Install Dependencies
 Make sure you have Node.js installed. Then, install the required packages:
 npm install
 This will install packages such as playwright, nodemailer, axios, p-limit, and dotenv.
 
-3. Configure Environment Variables
+### 3. Configure Environment Variables
 Create a .env file in the project root with the following content:
 EMAIL_USER=your-email@example.com
 EMAIL_PASS=your-email-password
@@ -53,7 +53,7 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/your_webhook_url
 
 Replace the placeholder values with your actual email credentials and Discord webhook URL.
 
-4. Prepare the Product Data Files
+### 4. Prepare the Product Data Files
 Ensure that your product data files exist in the project root and follow the correct JSON structure.
 
 For BestBuy (bestbuy-urls.json):
@@ -88,7 +88,7 @@ For Canada Computers (canada-computers-urls.json):
   // Add additional Canada Computers products as needed
 ]
 ```
-Usage
+### 6.Usage
 To run the script, use the following command:
 node index.js
 
