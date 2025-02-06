@@ -1,0 +1,37 @@
+[
+    {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/nvidia-geforce-rtx-5080-16gb-gddr7-video-card/18931347",
+    "sku": "NVIDIA GeForce RTX 5080 16GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/asus-tuf-gaming-geforce-rtx-5090-32gb-gddr7-video-card/18969272",
+    "sku": "ASUS TUF Gaming RTX 5090 32GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/nvidia-geforce-rtx-5090-32gb-gddr7-video-card/18931348",
+    "sku": "NVIDIA GeForce RTX 5090 32GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/zotac-gaming-geforce-rtx-5090-solid-32gb-gddr7-video-card/18931631",
+    "sku": "ZOTAC Gaming RTX 5090 Solid 32GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/msi-ventus-geforce-rtx-5090-32gb-gddr7-video-card/18938755",
+    "sku": "MSI Ventus RTX 5090 32GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/asus-prime-nvidia-geforce-rtx-5080-16gb-video-card/18971064",
+    "sku": "ASUS Prime RTX 5080 16GB",
+    "site": "bestbuy"
+  },
+  {
+    "targetURL": "https://www.bestbuy.ca/en-ca/product/pny-nvidia-geforce-rtx-5080-16gb-gddr7-video-card/18934178",
+    "sku": "PNY RTX 5080 16GB",
+    "site": "bestbuy"
+  }
+]

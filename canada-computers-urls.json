@@ -1,0 +1,122 @@
+ [   
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268187/gigabyte-aorus-geforce-rtx-5090-master-ice-32g-gv-n5090aorusm-ice-32gd.html",
+      "sku": "GIGABYTE AORUS RTX 5090 MASTER ICE",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268437/msi-geforce-rtx-5090-32g-gaming-trio-oc-rtx-5090-32g-gaming-trio-oc.html",
+      "sku": "MSI GeForce RTX 5090 32G GAMING TRIO OC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268186/gigabyte-aorus-geforce-rtx-5090-xtreme-waterforce-water-block-cooling-gv-n5090aorusx-wb-32gd.html",
+      "sku": "GIGABYTE AORUS GeForce RTX 5090 XTREME WATERFORCE",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268188/gigabyte-aorus-geforce-rtx-5090-master-ai-gaming-graphics-card-gv-n5090aorus-m-32gd.html",
+      "sku": "GIGABYTE AORUS GeForce RTX 5090 MASTER",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268435/msi-geforce-rtx-5090-32g-ventus-3x-oc-rtx-5090-32g-ventus-3x-oc.html",
+      "sku": "MSI GeForce RTX 5090 32G VENTUS 3X OC GDDR7 32GB",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268438/msi-geforce-rtx-5090-32g-vanguard-soc-rtx-5090-32g-vanguard-soc.html",
+      "sku": "MSI GeForce RTX 5090 32G VANGUARD SOC, GDDR7 32GB",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268283/zotac-gaming-geforce-rtx-5090-solid-32gb-gddr7-zt-b50900d-10p.html",
+      "sku": "ZOTAC GAMING GeForce RTX 5090 SOLID 32GB GDDR7",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268440/msi-geforce-rtx-5090-32g-suprim-soc-rtx-5090-32g-suprim-soc.html",
+      "sku": "MSI GeForce RTX 5090 32G SUPRIM SOC, GDDR7 32GB",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268262/asus-tuf-gaming-geforce-rtx-5090-32gb-gddr7-tuf-rtx5090-32g-gaming.html",
+      "sku": "ASUS TUF Gaming GeForce RTX 5090 32GB GDDR7",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268190/gigabyte-geforce-rtx-5090-gaming-oc-32g-gddr7-graphics-card-gv-n5090gaming-oc-32gd.html",
+      "sku": "GIGABYTE GeForce RTX 5090 GAMING OC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268191/gigabyte-geforce-rtx-5090-windforce-oc-32g-gddr7-graphics-card-gv-n5090wf3oc-32gd.html",
+      "sku": "GIGABYTE GeForce RTX 5090 WINDFORCE OC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268284/zotac-gaming-geforce-rtx-5090-solid-32gb-gddr7-zt-b50900j-10p.html",
+      "sku": "ZOTAC GAMING GeForce RTX 5090",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268153/zotac-gaming-geforce-rtx-5080-solid-oc-16gb-gddr7-zt-b50800j-10p.html",
+      "sku": "ZOTAC GAMING GeForce RTX 5080 SOLID OC 16GB",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268152/zotac-gaming-geforce-rtx-5080-solid-16gb-gddr7-zt-b50800d-10p.html",
+      "sku": "ZOTAC GAMING GeForce RTX 5080 SOLID 16GB ",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/267620/msi-geforce-rtx-5080-16g-suprim-soc-gddr7-16gb-rtx-5080-16g-suprim-soc.html",
+      "sku": "MSI GeForce RTX 5080 16G SUPRIM SOC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/267621/msi-geforce-rtx-5080-16g-vanguard-soc-launch-edition-rtx-5080-16g-vanguard-soc-launch-editio.html",
+      "sku": "MSI GeForce RTX 5080 16G VANGUARD SOC LAUNCH EDITION",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268138/gigabyte-geforce-rtx-5080-gaming-oc-ai-gaming-graphics-card-gv-n5080gaming-oc-16gd.html",
+      "sku": "GIGABYTE GeForce RTX 5080 GAMING OC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268141/gigabyte-geforce-rtx-5080-windforce-oc-sff-16g-graphics-card-geforce-rtx-5080-windforce-oc-sff-16g.html",
+      "sku": "GIGABYTE GeForce RTX 5080 WINDFORCE OC",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268146/msi-geforce-rtx-5080-16g-gaming-trio-oc-white-rtx-5080-16g-gaming-trio-oc-white.html",
+      "sku": "MSI GeForce RTX 5080 16G GAMING TRIO OC WHITE",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268148/msi-geforce-rtx-5080-16g-ventus-3x-oc-plus-rtx-5080-16g-ventus-3x-oc-plus.html",
+      "sku": "MSI GeForce RTX 5080 16G VENTUS 3X OC PLUS",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268139/gigabyte-geforce-rtx-5080-aero-oc-sff-16g-graphics-card-gv-n5080aero-oc-16gd.html",
+      "sku": "GIGABYTE GeForce RTX 5080 AERO OC SFF 16G",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268143/gigabyte-aorus-geforce-rtx-5080-master-ice-16gb-gv-n5080aorusm-ice-16gd.html",
+      "sku": "GIGABYTE AORUS GeForce RTX 5080 MASTER ICE",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268144/gigabyte-aorus-geforce-rtx-5080-master-16g-gddr7-gv-n5080aorus-m-16gd.html",
+      "sku": "GIGABYTE AORUS GeForce RTX 5080 MASTER",
+      "site": "canadacomputers"
+    },
+    {
+      "targetURL": "https://www.canadacomputers.com/en/powered-by-nvidia/268147/msi-geforce-rtx-5080-16g-gaming-trio-oc-rtx-5080-16g-gaming-trio-oc.html",
+      "sku": "MSI GeForce RTX 5080 16G GAMING TRIO OC",
+      "site": "canadacomputers"
+    }
+  ]
