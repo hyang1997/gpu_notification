@@ -1,4 +1,4 @@
-# Stock Checker Script
+# GPU Notications (Canada)
 
 This Node.js script monitors product availability on both BestBuy and Canada Computers concurrently. When stock is detected, it sends immediate Discord notifications and aggregates email notifications for stock changes.
 
