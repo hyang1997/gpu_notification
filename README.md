@@ -19,8 +19,17 @@ This Node.js script monitors product availability on both BestBuy and Canada Com
   Keeps sensitive credentials (email, Discord webhook URL) out of source code and organizes logic across multiple files.
 
 ## Project Structure
-project/ ├─ .env ├─ config.js ├─ notifications.js ├─ availability.js ├─ utils.js ├─ index.js ├─ bestbuy-urls.json └─ canada-computers-urls.json
-
+```
+project/
+├─ .env
+├─ config.js
+├─ notifications.js
+├─ availability.js
+├─ utils.js
+├─ index.js
+├─ bestbuy-urls.json
+└─ canada-computers-urls.json
+```
 - **`.env`**: Contains sensitive credentials and configuration.
 - **`config.js`**: Loads environment variables.
 - **`notifications.js`**: Contains functions to send Discord and email notifications.
@@ -36,7 +45,7 @@ project/ ├─ .env ├─ config.js ├─ notifications.js ├─ availabilit
 Clone this repository to your local machine:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/hyang1997/gpu_notification
 cd <repository-directory>
 ```
 ### 2. Install Dependencies
@@ -91,17 +100,20 @@ For Canada Computers (canada-computers-urls.json):
 ```
 ### 6.Usage
 To run the script, use the following command:
+```
 node index.js
+```
 
-The script will:
+**The script will:**
 
-Open a headless browser using Playwright.
-Load product data from the JSON files.
-Check product availability concurrently for each shop.
-Immediately send a Discord notification when stock is detected.
-Send aggregated email notifications if stock changes occur.
-Repeat the check every minute (this interval can be adjusted in index.js).
-Customization
+-> Open a headless browser using Playwright.
+-> Load product data from the JSON files.
+-> Check product availability concurrently for each shop.
+-> Immediately send a Discord notification when stock change is detected.
+-> Send aggregated email notifications if stock changes occur.
+-> Repeat the check every minute (this interval can be adjusted in index.js).
+
+### 7.Customization
 Check Frequency:
 Adjust the minutes variable in index.js to change how often the script runs.
 
@@ -111,7 +123,7 @@ Modify the pLimit(3) values in index.js to change the number of concurrent check
 Notification Behavior:
 You can customize the notification message formats in notifications.js and the immediate notification logic in index.js.
 
-Troubleshooting
+### 8.Troubleshooting
 No Notifications:
 If no Discord messages are being sent, verify that your DISCORD_WEBHOOK_URL is correct in the .env file.
 
